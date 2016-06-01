@@ -16,7 +16,7 @@
   :author "Masataro Asai"
   :mailto "guicho2.71828@gmail.com"
   :license "LLGPL"
-  :depends-on (:trivia :alexandria :iterate)
+  :depends-on (:trivia :alexandria :iterate :cl-sat :cl-sat.minisat.build)
   :components ((:module "src"
                 :components
                 ((:file "package"))))
