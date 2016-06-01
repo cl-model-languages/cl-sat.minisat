@@ -16,4 +16,8 @@
   :author "Masataro Asai"
   :mailto "guicho2.71828@gmail.com"
   :license "LLGPL"
-  :description "Common Lisp API to minisat")
+  :description "Common Lisp API to minisat"
+  :perform (compile-op (op c)
+                       (uiop:run-program (format nil "make -C ~a"
+                                                 (asdf:system-source-directory :cl-sat.minisat.build))
+                                         :output t :error-output t)))
