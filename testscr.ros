@@ -11,8 +11,7 @@ exec ros -Q -- $0 "$@"
   (uiop:quit (if (handler-case
                      (progn
                        (asdf:load-system :cl-sat.minisat.driver.test)
-                       (eval (read-from-string "(every #'fiveam::TEST-PASSED-P (5am:run! :minisat-driver))"))
-)
+                       (eval (read-from-string "(5am:run! :minisat-driver)")))
                    (serious-condition (c)
                      (describe c)
                      (uiop:quit 2)))
