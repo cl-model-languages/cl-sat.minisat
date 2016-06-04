@@ -32,11 +32,15 @@
       (ematch (iter (for token in-file (format nil "~a/result" dir))
                     (collect token))
         ((list* sat? assignments)
-         (cons sat? (iter (for v in (sat-instance-variables *instance*))
-                          (for a in assignments)
-                          (collect
-                              (if (plusp a)
-                                  (cons v 1)
-                                  (cons v 0))))))))))
+         (values
+          (iter (for v in (sat-instance-variables *instance*))
+                (for a in assignments)
+                (when (plusp a) (collect v)))
+          (case sat?
+            (sat t)
+            ((unsat indet) nil))
+          (case sat?
+            ((sat unsat) t)
+            (indet nil))))))))
 
 
