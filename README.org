@@ -1,6 +1,8 @@
 
-* Minisat-Driver  - Common Lisp API to minisat
+* cl-sat.minisat  - Common Lisp API to minisat
 
+Requires =make,g++= to build minisat.
+  
 ** Dependencies
 
 This library is at least tested on implementation listed below:
