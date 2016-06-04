@@ -1,8 +1,6 @@
 
 * Minisat-Driver  - Common Lisp API to minisat
 
-** Usage
-
 ** Dependencies
 
 This library is at least tested on implementation listed below:
@@ -19,11 +17,6 @@ Also, it depends on the following libraries:
 
 + iterate by  ::
     Jonathan Amsterdam's iterator/gatherer/accumulator facility
-
-
-
-** Installation
-
 
 ** Author
 
