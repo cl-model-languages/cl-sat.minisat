@@ -4,11 +4,11 @@
 |#
 
 (in-package :cl-user)
-(defpackage cl-sat.minisat.driver
+(defpackage cl-sat.minisat
   (:use :cl :trivia :alexandria :iterate :cl-sat)
   (:export
-   #:minisat))
-(in-package :cl-sat.minisat.driver)
+   #:*minisat-home*))
+(in-package :cl-sat.minisat)
 
 ;; blah blah blah.
 
@@ -17,7 +17,7 @@
 (defun minisat-binary (&optional (*minisat-home* *minisat-home*))
   (merge-pathnames "build/release/bin/minisat" *minisat-home*))
 
-(defmethod solve ((input pathname) (solver (eql 'minisat)) &rest options &key &allow-other-keys)
+(defmethod solve ((input pathname) (solver (eql :minisat)) &rest options &key &allow-other-keys)
   (with-temp (dir :directory t :template "minisat.XXXXXXXX")
     (let* ((command (format nil "cd ~a; ~a ~{~A~^ ~}~a ~a"
                             (namestring dir)
@@ -27,8 +27,16 @@
       ;; 0 -- indeterminite
       ;; 10 -- sat
       ;; 20 -- unsat
-      ;; 
+      ;;
       ;; first token ↓ is either SAT, UNSAT, INDET
-      (iter (for token in-file (format nil "~a/result" dir))
-            (collect token)))))
+      (ematch (iter (for token in-file (format nil "~a/result" dir))
+                    (collect token))
+        ((list* sat? assignments)
+         (cons sat? (iter (for v in (sat-instance-variables *instance*))
+                          (for a in assignments)
+                          (collect
+                              (if (plusp a)
+                                  (cons v 1)
+                                  (cons v 0))))))))))
+
 

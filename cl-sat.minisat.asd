@@ -11,7 +11,7 @@
 
 
 
-(defsystem cl-sat.minisat.driver
+(defsystem cl-sat.minisat
   :version "0.1"
   :author "Masataro Asai"
   :mailto "guicho2.71828@gmail.com"
@@ -21,4 +21,4 @@
                 :components
                 ((:file "package"))))
   :description "Common Lisp API to minisat"
-  :in-order-to ((test-op (test-op :cl-sat.minisat.driver.test))))
+  :in-order-to ((test-op (test-op :cl-sat.minisat.test))))
