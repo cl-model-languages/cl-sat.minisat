@@ -17,14 +17,18 @@
 (defun minisat-binary (&optional (*minisat-home* *minisat-home*))
   (merge-pathnames "build/release/bin/minisat" *minisat-home*))
 
-
-(defmethod solve ((s stream) (solver (eql 'minisat)) &rest options &key &allow-other-keys)
-  (let (file)
-    (unwind-protect
-        (uiop:mktemp
-  (uiop:run-program (format nil "~{~A ~}" (cons (minisat-binary) options))
-                    :input s
-                    :output *standard-output*
-                    :error-output *error-output*))
-
+(defmethod solve ((input pathname) (solver (eql 'minisat)) &rest options &key &allow-other-keys)
+  (with-temp (dir :directory t :template "minisat.XXXXXXXX")
+    (let* ((command (format nil "cd ~a; ~a ~{~A~^ ~}~a ~a"
+                            (namestring dir)
+                            (enough-namestring (minisat-binary))
+                            options (namestring input) "result")))
+      (uiop:run-program command :output *standard-output* :ignore-error-status t)
+      ;; 0 -- indeterminite
+      ;; 10 -- sat
+      ;; 20 -- unsat
+      ;; 
+      ;; first token ↓ is either SAT, UNSAT, INDET
+      (iter (for token in-file (format nil "~a/result" dir))
+            (collect token)))))
 
