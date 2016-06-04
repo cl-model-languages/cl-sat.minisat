@@ -36,11 +36,11 @@
           (iter (for v in (sat-instance-variables *instance*))
                 (for a in assignments)
                 (when (plusp a) (collect v)))
-          (case sat?
-            (sat t)
-            ((unsat indet) nil))
-          (case sat?
-            ((sat unsat) t)
-            (indet nil))))))))
+          (ematch sat?
+            ((symbol :name "SAT") t)
+            ((symbol :name (or "UNSAT" "INDET")) nil))
+          (ematch sat?
+            ((symbol :name (or "SAT" "UNSAT")) t)
+            ((symbol :name "INDET") nil))))))))
 
 
