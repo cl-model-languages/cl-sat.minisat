@@ -23,24 +23,23 @@
                             (namestring dir)
                             (namestring (minisat-binary))
                             options (namestring input) "result")))
-      (uiop:run-program command :output *standard-output* :ignore-error-status t)
-      ;; 0 -- indeterminite
-      ;; 10 -- sat
-      ;; 20 -- unsat
-      ;;
-      ;; first token ↓ is either SAT, UNSAT, INDET
-      (ematch (iter (for token in-file (format nil "~a/result" dir))
-                    (collect token))
-        ((list* sat? assignments)
-         (values
-          (iter (for v in (sat-instance-variables *instance*))
-                (for a in assignments)
-                (when (plusp a) (collect v)))
-          (ematch sat?
-            ((symbol :name "SAT") t)
-            ((symbol :name (or "UNSAT" "INDET")) nil))
-          (ematch sat?
-            ((symbol :name (or "SAT" "UNSAT")) t)
-            ((symbol :name "INDET") nil))))))))
+      (format t "~&; ~a" command)
+      (multiple-value-match (uiop:run-program command :output *standard-output* :error-output *error-output* :ignore-error-status t)
+        ((_ _ 0)
+         ;; indeterminite
+         (values nil nil nil))
+        ((_ _ 10)
+         ;; sat
+         (ematch (iter (for token in-file (format nil "~a/result" dir))
+                       (collect token))
+           ((list* _ assignments)
+            (values
+             (iter (for v in (sat-instance-variables *instance*))
+                   (for a in assignments)
+                   (when (plusp a) (collect v)))
+             t t))))
+        ((_ _ 20)
+         ;; unsat
+         (values nil nil t))))))
 
 
