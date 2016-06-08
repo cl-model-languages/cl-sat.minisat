@@ -20,9 +20,9 @@
 ;; run test with (run! test-name) 
 
 (test cl-sat.minisat
-  (finishes (solve '(and a b c) :minisat))
-  (finishes (solve '(or a b c) :minisat))
-  (finishes (solve '(and (or a !b c) d) :minisat))
-  (finishes (solve '(and (and (and a))) :minisat))
-  (finishes (solve '(not (and a b)) :minisat))
-  (finishes (solve '(not (or a b)) :minisat)))
+  (is-true (nth-value 1 (solve '(and a b c) :minisat)))
+  (is-true (nth-value 1 (solve '(or a b c) :minisat)))
+  (is-true (nth-value 1 (solve '(and (or a !b c) d) :minisat)))
+  (is-true (nth-value 1 (solve '(and (and (and a))) :minisat)))
+  (is-true (nth-value 1 (solve '(not (and a b)) :minisat)))
+  (is-true (nth-value 1 (solve '(not (or a b)) :minisat))))
