@@ -1,5 +1,5 @@
 #|
-  This file is a part of minisat-driver project.
+  This file is a part of cl-sat.minisat project.
   Copyright (c) 2016 Masataro Asai (guicho2.71828@gmail.com)
 |#
 
