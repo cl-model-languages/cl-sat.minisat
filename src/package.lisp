@@ -21,7 +21,7 @@
   (with-temp (dir :directory t :template "minisat.XXXXXXXX")
     (let* ((command (format nil "cd ~a; ~a ~{~A~^ ~}~a ~a"
                             (namestring dir)
-                            (enough-namestring (minisat-binary))
+                            (namestring (minisat-binary))
                             options (namestring input) "result")))
       (uiop:run-program command :output *standard-output* :ignore-error-status t)
       ;; 0 -- indeterminite
