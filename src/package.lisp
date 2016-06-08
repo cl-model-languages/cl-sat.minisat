@@ -17,7 +17,7 @@
 (defun minisat-binary (&optional (*minisat-home* *minisat-home*))
   (merge-pathnames "build/release/bin/minisat" *minisat-home*))
 
-(defmethod solve ((input pathname) (solver (eql :minisat)) &rest options &key &allow-other-keys)
+(defmethod solve ((input pathname) (solver (eql :minisat)) &rest options)
   (with-temp (dir :directory t :template "minisat.XXXXXXXX")
     (let* ((command (format nil "cd ~a; ~a ~{~A~^ ~}~a ~a"
                             (namestring dir)
