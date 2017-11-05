@@ -1,6 +1,8 @@
 
 * cl-sat.minisat  - Common Lisp API to minisat
 
+See [[https://github.com/guicho271828/cl-sat][cl-sat]] for details.
+
 Requires =make,g++= to build minisat.
   
 ** Dependencies
