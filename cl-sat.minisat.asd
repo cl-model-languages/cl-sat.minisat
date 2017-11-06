@@ -16,9 +16,20 @@
   :author "Masataro Asai"
   :mailto "guicho2.71828@gmail.com"
   :license "LLGPL"
-  :depends-on (:trivia :alexandria :iterate :cl-sat :cl-sat.minisat.build)
+  :depends-on (:trivia :alexandria :iterate :cl-sat)
   :components ((:module "src"
-                :components
-                ((:file "package"))))
+                        :components
+                        ((:file "package"))))
   :description "Common Lisp API to minisat"
-  :in-order-to ((test-op (test-op :cl-sat.minisat.test))))
+  :in-order-to ((test-op (test-op :cl-sat.minisat.test)))
+  :defsystem-depends-on (:trivial-package-manager)
+  :perform
+  (load-op :before (op c)
+           (uiop:symbol-call :trivial-package-manager
+                             :ensure-program
+                             "minisat"
+                             :apt "minisat"
+                             :dnf "minisat2"
+                             :yum "minisat2"
+                             :from-source (format nil "make -C ~a"
+                                                  (asdf:system-source-directory :cl-sat.minisat)))))

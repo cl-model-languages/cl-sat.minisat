@@ -12,10 +12,12 @@
 
 ;; blah blah blah.
 
-(defvar *minisat-home* (asdf:system-relative-pathname :cl-sat.minisat.build "minisat/"))
+(defvar *minisat-home* (asdf:system-relative-pathname :cl-sat.minisat "minisat/"))
 
 (defun minisat-binary (&optional (*minisat-home* *minisat-home*))
-  (merge-pathnames "build/release/bin/minisat" *minisat-home*))
+  (if (trivial-package-manager:which "minisat")
+      "minisat"
+      (merge-pathnames "build/release/bin/minisat" *minisat-home*)))
 
 (defmethod solve ((input pathname) (solver (eql :minisat)) &rest options)
   (with-temp (dir :directory t :template "minisat.XXXXXXXX")
