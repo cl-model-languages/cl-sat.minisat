@@ -26,4 +26,5 @@
   (is-true (nth-value 1 (solve '(and (and (and a))) :minisat)))
   (is-true (nth-value 1 (solve '(not (and a b)) :minisat)))
   (is-true (nth-value 1 (solve '(not (or a b)) :minisat)))
-  (is-false (nth-value 1 (solve '(and a !a) :minisat))))
+  (is-false (nth-value 1 (solve '(and a !a) :minisat)))
+  (is-true (nth-value 1 (solve '(not (or a b)) :minisat "-cpu-lim=10000"))))

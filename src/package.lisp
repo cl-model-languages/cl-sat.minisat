@@ -21,7 +21,7 @@
 
 (defmethod solve ((input pathname) (solver (eql :minisat)) &rest options)
   (with-temp (dir :directory t :template "minisat.XXXXXXXX")
-    (let* ((command (format nil "cd ~a; ~a ~{~A~^ ~}~a ~a"
+    (let* ((command (format nil "cd ~a; ~a ~{~A~^ ~} ~a ~a"
                             (namestring dir)
                             (namestring (minisat-binary))
                             options (namestring input) "result")))
