@@ -21,6 +21,10 @@ env:
     - LISP=cmucl
     - LISP=alisp
 
+os:
+  - linux
+  - osx
+
 matrix:
   allow_failures:
     - env: LISP=clisp

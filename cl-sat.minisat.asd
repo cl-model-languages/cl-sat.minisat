@@ -31,5 +31,7 @@
                              :apt "minisat"
                              :dnf "minisat2"
                              :yum "minisat2"
+                             :brew "minisat"
+                             :macports "minisat"
                              :from-source (format nil "make -C ~a"
                                                   (asdf:system-source-directory :cl-sat.minisat)))))
