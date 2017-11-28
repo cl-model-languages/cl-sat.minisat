@@ -33,10 +33,12 @@ matrix:
     - env: LISP=cmucl
     - env: LISP=alisp
 
+before_install:
+  - if [[ "$TRAVIS_OS_NAME" == "osx" ]] ; then brew update ; fi
+      
 install:
   - curl -L https://raw.githubusercontent.com/snmsts/roswell/release/scripts/install-for-ci.sh | sh
   - ros install guicho271828/trivial-package-manager
-  - [[ "$TRAVIS_OS_NAME" == "osx" ]] && brew update
 
 cache:
   directories:
