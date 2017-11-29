@@ -33,5 +33,9 @@
                              :yum "minisat2"
                              :brew "minisat"
                              :macports "minisat"
+                             :env-alist `(("PATH" . ,(format nil "~a:~a"
+                                                             (asdf:system-relative-pathname
+                                                              :cl-sat.minisat "minisat/build/release/bin/")
+                                                             (uiop:getenv "PATH"))))
                              :from-source (format nil "make -C ~a"
                                                   (asdf:system-source-directory :cl-sat.minisat)))))
