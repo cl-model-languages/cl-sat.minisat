@@ -32,6 +32,7 @@
          (values nil nil nil))
         ((_ _ 10)
          ;; sat
+         ;; note: minisat does not correctly return the dmacs output; each line contains a "c" at the beginning of line
          (ematch (iter (for token in-file (format nil "~a/result" dir))
                        (collect token))
            ((list* _ assignments)
