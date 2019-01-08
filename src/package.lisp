@@ -32,15 +32,7 @@
          (values nil nil nil))
         ((_ _ 10)
          ;; sat
-         ;; note: minisat does not correctly return the dmacs output; each line contains a "c" at the beginning of line
-         (ematch (iter (for token in-file (format nil "~a/result" dir))
-                       (collect token))
-           ((list* _ assignments)
-            (values
-             (iter (for v in (sat-instance-variables *instance*))
-                   (for a in assignments)
-                   (when (plusp a) (collect v)))
-             t t))))
+         (parse-dimacs-output (format nil "~a/result" dir) *instance*))
         ((_ _ 20)
          ;; unsat
          (values nil nil t))))))
