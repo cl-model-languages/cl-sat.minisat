@@ -37,7 +37,7 @@
                        (collect token))
            ((list* _ assignments)
             (values
-             (iter (for v in (sat-instance-variables *instance*))
+             (iter (for v in-vector (sat-instance-variables *instance*))
                    (for a in assignments)
                    (when (plusp a) (collect v)))
              t t))))
