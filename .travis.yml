@@ -34,10 +34,10 @@ matrix:
     - env: LISP=alisp
 
 before_install:
-  - test "$TRAVIS_OS_NAME = osx" && brew update
-  - test "$TRAVIS_OS_NAME = osx" && curl -LO https://raw.githubusercontent.com/GiovanniBussi/macports-ci/master/macports-ci
-  - test "$TRAVIS_OS_NAME = osx" && source ./macports-ci install
-  - test "$TRAVIS_OS_NAME = osx" && source ./macports-ci ccache
+  - test "$TRAVIS_OS_NAME" = osx && brew update
+  - test "$TRAVIS_OS_NAME" = osx && curl -LO https://raw.githubusercontent.com/GiovanniBussi/macports-ci/master/macports-ci
+  - test "$TRAVIS_OS_NAME" = osx && source ./macports-ci install
+  - test "$TRAVIS_OS_NAME" = osx && source ./macports-ci ccache
       
 install:
   - curl -L https://raw.githubusercontent.com/snmsts/roswell/release/scripts/install-for-ci.sh | sh
@@ -52,4 +52,4 @@ cache:
 
 script:
   - ./testscr.ros
-  - test "$TRAVIS_OS_NAME = osx" && source macports-ci ccache --save
+  - test "$TRAVIS_OS_NAME" = osx && source macports-ci ccache --save
