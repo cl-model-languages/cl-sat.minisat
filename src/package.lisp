@@ -34,31 +34,7 @@
         ((_ _ 10)
          ;; sat
          ;; note: minisat does not correctly return the dmacs output; each line contains a "c" at the beginning of line
-         (let* ((instance *instance*)
-                (assignments (make-array (length (variables instance))
-                                         :element-type '(integer 0 2)
-                                         :initial-element 2)))
-           (iter
-             (for v in-file (format nil "~a/result" dir))
-             (when (first-iteration-p)
-               (next-iteration))
-             (when (= v 0)
-               (leave))
-             (setf (aref assignments (1- (abs v)))
-                   (if (plusp v) 1 0)))
-           (iter
-             (for a in-vector assignments with-index i)
-             (for v = (aref (variables instance) i))
-             (case a
-               (1 (when (not (eq (find-package :cl-sat.aux-variables)
-                                 (symbol-package v)))
-                    (collect v into trues)))
-               (2 (when (not (eq (find-package :cl-sat.aux-variables)
-                                 (symbol-package v)))
-                    (collect v into dont-care))))
-             (finally
-              (return
-                (values trues t t dont-care))))))
+         (parse-assignments (format nil "~a/result" dir) *instance* t))
         ((_ _ 20)
          ;; unsat
          (values nil nil t))))))
