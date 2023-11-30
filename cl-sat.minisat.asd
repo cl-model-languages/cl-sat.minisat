@@ -31,6 +31,7 @@
                              :apt "minisat"
                              :dnf "minisat2"
                              :yum "minisat2"
+                             :pacman "minisat"
                              :brew "minisat"
                              :macports "minisat"
                              :env-alist `(("PATH" . ,(format nil "~a:~a"
